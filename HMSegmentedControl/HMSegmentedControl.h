@@ -219,11 +219,28 @@ typedef enum {
  */
 @property (nonatomic) BOOL shouldAnimateUserSelection;
 
+/**
+ Specifies the badge color.
+ 
+ Default is `[UIColor redColor]`
+ */
+@property (nonatomic, strong) UIColor *badgeColor;
+
+/**
+ Specifies the badge size.
+ 
+ Default is 8.0 pt
+ */
+@property (nonatomic) CGFloat badgeSize;
+
 - (id)initWithSectionTitles:(NSArray *)sectiontitles;
 - (id)initWithSectionImages:(NSArray *)sectionImages sectionSelectedImages:(NSArray *)sectionSelectedImages;
 - (instancetype)initWithSectionImages:(NSArray *)sectionImages sectionSelectedImages:(NSArray *)sectionSelectedImages titlesForSections:(NSArray *)sectiontitles;
 - (void)setSelectedSegmentIndex:(NSUInteger)index animated:(BOOL)animated;
 - (void)setIndexChangeBlock:(IndexChangeBlock)indexChangeBlock;
 - (void)setTitleFormatter:(HMTitleFormatterBlock)titleFormatter;
+
+- (void)presentBadgeAtIndex:(NSUInteger)index;
+- (void)hideBadgeAtIndex:(NSUInteger)index;
 
 @end

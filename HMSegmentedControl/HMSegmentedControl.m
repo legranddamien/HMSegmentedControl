@@ -21,6 +21,7 @@
 @property (nonatomic, readwrite) CGFloat segmentWidth;
 @property (nonatomic, readwrite) NSArray *segmentWidthsArray;
 @property (nonatomic, strong) HMScrollView *scrollView;
+@property (nonatomic, strong) NSMutableIndexSet *badgeIndexes;
 
 @end
 
@@ -160,6 +161,10 @@
     self.selectionIndicatorBoxOpacity = 0.2;
     
     self.contentMode = UIViewContentModeRedraw;
+    
+    self.badgeColor = [UIColor redColor];
+    self.badgeSize = 8.0;
+    self.badgeIndexes = [[NSMutableIndexSet alloc] init];
 }
 
 - (void)layoutSubviews {
@@ -325,6 +330,16 @@
             
             [self.scrollView.layer addSublayer:titleLayer];
             
+            if([self.badgeIndexes containsIndex:idx])
+            {
+                CAShapeLayer *badge = [CAShapeLayer layer];
+                badge.path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 0, self.badgeSize, self.badgeSize)].CGPath;
+                badge.fillColor = self.badgeColor.CGColor;
+                badge.frame = CGRectMake(rect.origin.x + rect.size.width + self.badgeSize , rect.origin.y - (self.badgeSize/2), self.badgeSize, self.badgeSize);
+                
+                [self.scrollView.layer addSublayer:badge];
+            }
+            
             // Vertical Divider
             if (self.isVerticalDividerEnabled && idx > 0) {
                 CALayer *verticalDividerLayer = [CALayer layer];
@@ -360,6 +375,17 @@
             }
             
             [self.scrollView.layer addSublayer:imageLayer];
+            
+            if([self.badgeIndexes containsIndex:idx])
+            {
+                CAShapeLayer *badge = [CAShapeLayer layer];
+                badge.path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 0, self.badgeSize, self.badgeSize)].CGPath;
+                badge.fillColor = self.badgeColor.CGColor;
+                badge.frame = CGRectMake(rect.origin.x + rect.size.width + (self.badgeSize / 2) , rect.origin.y - (self.badgeSize/2), self.badgeSize, self.badgeSize);
+                
+                [self.scrollView.layer addSublayer:badge];
+            }
+            
             // Vertical Divider
             if (self.isVerticalDividerEnabled && idx>0) {
                 CALayer *verticalDividerLayer = [CALayer layer];
@@ -882,6 +908,20 @@
     }
     
     return [resultingAttrs copy];
+}
+
+#pragma mark - Badges
+
+- (void)presentBadgeAtIndex:(NSUInteger)index
+{
+    [self.badgeIndexes addIndex:index];
+    [self setNeedsDisplay];
+}
+
+- (void)hideBadgeAtIndex:(NSUInteger)index
+{
+    [self.badgeIndexes removeIndex:index];
+    [self setNeedsDisplay];
 }
 
 @end

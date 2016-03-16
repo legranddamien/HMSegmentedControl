@@ -66,8 +66,12 @@
 //     Segmented control with more customization and indexChangeBlock
     HMSegmentedControl *segmentedControl3 = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"One", @"Two", @"Three", @"4", @"Five"]];
     [segmentedControl3 setFrame:CGRectMake(0, 180, viewWidth, 50)];
+    
+    __weak HMSegmentedControl *weakSegmentedControl = segmentedControl3;
+    
     [segmentedControl3 setIndexChangeBlock:^(NSInteger index) {
         NSLog(@"Selected index %ld (via block)", (long)index);
+        if(weakSegmentedControl) [weakSegmentedControl hideBadgeAtIndex:index];
     }];
     segmentedControl3.selectionIndicatorHeight = 4.0f;
     segmentedControl3.backgroundColor = [UIColor colorWithRed:0.1 green:0.4 blue:0.8 alpha:1];
@@ -79,6 +83,8 @@
     segmentedControl3.shouldAnimateUserSelection = NO;
     segmentedControl3.tag = 2;
     [self.view addSubview:segmentedControl3];
+    
+    [segmentedControl3 presentBadgeAtIndex:2];
     
     // Tying up the segmented control to a scroll view
     self.segmentedControl4 = [[HMSegmentedControl alloc] initWithFrame:CGRectMake(0, 260, viewWidth, 50)];
