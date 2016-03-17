@@ -912,7 +912,7 @@
 
 #pragma mark - Badges
 
-- (void)presentBadgeAtIndex:(NSUInteger)index
+- (void)showBadgeAtIndex:(NSUInteger)index
 {
     [self.badgeIndexes addIndex:index];
     [self setNeedsDisplay];

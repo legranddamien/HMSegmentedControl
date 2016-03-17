@@ -84,7 +84,7 @@
     segmentedControl3.tag = 2;
     [self.view addSubview:segmentedControl3];
     
-    [segmentedControl3 presentBadgeAtIndex:2];
+    [segmentedControl3 showBadgeAtIndex:2];
     
     // Tying up the segmented control to a scroll view
     self.segmentedControl4 = [[HMSegmentedControl alloc] initWithFrame:CGRectMake(0, 260, viewWidth, 50)];

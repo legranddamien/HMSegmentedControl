@@ -240,7 +240,7 @@ typedef enum {
 - (void)setIndexChangeBlock:(IndexChangeBlock)indexChangeBlock;
 - (void)setTitleFormatter:(HMTitleFormatterBlock)titleFormatter;
 
-- (void)presentBadgeAtIndex:(NSUInteger)index;
+- (void)showBadgeAtIndex:(NSUInteger)index;
 - (void)hideBadgeAtIndex:(NSUInteger)index;
 
 @end
